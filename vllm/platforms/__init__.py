@@ -138,6 +138,7 @@ def xpu_platform_plugin() -> Optional[str]:
     logger.debug("Checking if XPU platform is available.")
     try:
         import torch
+        import intel_extension_for_pytorch  # noqa: F401
         import os
         XPU_CCL_BACKEND = os.getenv("XPU_CCL_BACKEND", "ccl")
         if XPU_CCL_BACKEND == "ccl":

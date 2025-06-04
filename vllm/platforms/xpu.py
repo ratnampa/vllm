@@ -105,10 +105,8 @@ class XPUPlatform(Platform):
             # FIXME(kunshang):
             # spawn needs calling `if __name__ == '__main__':``
             # fork is not supported for xpu start new process.
-            logger.error(
-                "Both start methods (spawn and fork) have issue "
-                "on XPU if you use mp backend, setting it to ray instead.")
-            parallel_config.distributed_executor_backend = "ray"
+            logger.warning(
+                "Please use spawn as start method if you want to use mp.")
 
         elif parallel_config.distributed_executor_backend != "ray":
             logger.warning(
@@ -129,8 +127,7 @@ class XPUPlatform(Platform):
 
     @classmethod
     def is_pin_memory_available(cls):
-        logger.warning("Pin memory is not supported on XPU.")
-        return False
+        return True
 
     @classmethod
     def get_current_memory_usage(cls,
